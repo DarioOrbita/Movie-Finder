@@ -1,3 +1,20 @@
+//Global variables
+var searchFormEl = document.querySelector("#search-form");
+var movieInputEl = document.querySelector("#movie");
+
+var formSubmitHandler = function(event) {
+  event.preventDefault();
+  var movieSearch = movieInputEl.value.trim();
+
+  if(movieSearch){
+      getMovieData(movieSearch);
+      movieInputEl.value = "";
+  } else {
+      alert("Please enter a valid movie name!");
+  }
+  console.log(event);
+};
+
 // OMDb API key: 6f4894da
 const getMovieData = function (title) {
   let apiUrl = `http://www.omdbapi.com/?apikey=6f4894da&s=${title}&type=movie`;
@@ -38,3 +55,5 @@ const getPlatforms = function (title) {
 };
 
 getPlatforms("Titanic");
+
+searchFormEl.addEventListener('submit', formSubmitHandler)
