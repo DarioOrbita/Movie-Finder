@@ -54,6 +54,30 @@ const getMovieData = function (title) {
   });
 };
 
+// Get more in-depth data about movie, used to pass to getPlatforms and for getting all the data needed for display.
+const singleMovieData = function (data) {
+  for (i = 0; i < data.length; i++) {
+    let id = data[i];
+
+    let apiUrl = `http://www.omdbapi.com/?apikey=6f4894da&i=${id}&type=movie`;
+    fetch(apiUrl).then(function (response) {
+      // Parse and return array
+      response.json().then(function (data) {
+        setTimeout(function () {
+          let movieData = data;
+          fullMovieData.push(movieData);
+          // Send to get platforms
+          getPlatforms(data.imdbID);
+        }, 1000);
+      });
+    });
+  }
+  // Delay displayMoviePosters by 2sec to allow array to update from fetch
+  setTimeout(displayMoviePosters, 2000);
+};
+
+searchFormEl.addEventListener("submit", formSubmitHandler);
+
 // Searh for streaming services
 const getPlatforms = function (id) {
   // Search for id passed into function
@@ -80,30 +104,6 @@ const getPlatforms = function (id) {
     }
   });
 };
-
-// Get more in-depth data about movie, used to pass to getPlatforms and for getting all the data needed for display.
-const singleMovieData = function (data) {
-  for (i = 0; i < data.length; i++) {
-    let id = data[i];
-
-    let apiUrl = `http://www.omdbapi.com/?apikey=6f4894da&i=${id}&type=movie`;
-    fetch(apiUrl).then(function (response) {
-      // Parse and return array
-      response.json().then(function (data) {
-        setTimeout(function () {
-          let movieData = data;
-          fullMovieData.push(movieData);
-          // Send to get platforms
-          getPlatforms(data.imdbID);
-        }, 1000);
-      });
-    });
-  }
-  // Delay displayMoviePosters by 2sec to allow array to update from fetch
-  setTimeout(displayMoviePosters, 2000);
-};
-
-searchFormEl.addEventListener("submit", formSubmitHandler);
 
 // Display movie posters
 let displayMoviePosters = function () {
