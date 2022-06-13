@@ -99,6 +99,7 @@ const getPlatforms = function (id) {
         } else {
           let streamingObject = data.collection;
           streamingInfo.push(streamingObject);
+          console.log(streamingInfo);
         }
       });
     }
@@ -119,6 +120,13 @@ let displayMoviePosters = function () {
     } else {
       // Div to hold image and title
       let movieCoverEl = document.createElement("div");
+      movieCoverEl.setAttribute("id", `movie-poster-container-${i}`);
+
+      // Add title of movie
+      let title = document.createElement("h2");
+      title.innerHTML = `${fullMovieData[i].Title} (${fullMovieData[i].Year})`;
+      movieCoverEl.appendChild(title);
+
       // Img element to put poster
       let poster = document.createElement("img");
       // Give class of poster
@@ -128,6 +136,7 @@ let displayMoviePosters = function () {
       poster.setAttribute("src", `${fullMovieData[i].Poster}`);
       // Ammend poster to div
       movieCoverEl.appendChild(poster);
+
       // Append div to poster grid
       posterGridEl.appendChild(movieCoverEl);
     }
