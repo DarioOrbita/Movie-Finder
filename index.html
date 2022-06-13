@@ -1,27 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/styles.css">
 
-    <title>Movie-Finder</title>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./assets/css/styles.css">
+
+  <title>Movie-Finder</title>
 </head>
+
 <body>
-<!-- Added the search function to header -->
-    <header>
-        <h1> Movie-Finder</h1>
-        <div class="">
-          <div class="">
-              <h3>Search for a Movie:</h3>
-              <form id="search-form">
-                <input name="movie" id="movie" type="text" autofocus="true" class="form-input" />
-                <button type="submit" class="submitBtn">Search</button>
-              </form>
-          </div>
+  <!-- Added the search function to header -->
+  <header>
+    <h1> Movie-Finder</h1>
+    <div class="">
+      <div class="">
+        <h3>Search for a Movie:</h3>
+        <form id="search-form">
+          <input name="movie" id="movie" type="text" autofocus="true" class="form-input" />
+          <button type="submit" class="submitBtn">Search</button>
+        </form>
       </div>
-    </header>
+    </div>
+  </header>
+
+  <!-- The Modal -->
+  <div id="searchErrorModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Error: You must enter a movie title!</p>
+    </div>
+
+  </div>
 
     <div class="search-results">
       
@@ -29,4 +42,5 @@
 
   <script src="./assets/js/script.js"></script>
 </body>
+
 </html>
