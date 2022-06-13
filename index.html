@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/styles.css">
 
-    <title>Movie-Finder</title>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./assets/css/styles.css">
+
+  <title>Movie-Finder</title>
 </head>
+
 <body>
 <!-- Added the search function to header -->
     <header class="bg-slate-200 border-red-800 border-2 container flex flex-row justify-center md:justify-start">
@@ -21,7 +23,23 @@
               </form>
           </div>
       </div>
-    </header>
+    </div>
+  </header>
+
+  <!-- The Modal -->
+  <div id="searchErrorModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Error: You must enter a movie title!</p>
+    </div>
+
+  </div>
+
+    <div class="search-results">
+      
+    </div>
 
   <!-- results container -->
   <div id="results-container" class="grid gap-4 grid-cols-4 grid-rows-2 border-red-800 bg-slate-300 container ml-auto mr-8 p-10">
@@ -65,4 +83,5 @@
 
   <!--<script src="./assets/js/script.js"></script>-->
 </body>
+
 </html>
