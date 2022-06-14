@@ -10,7 +10,7 @@ let fullMovieData = [];
 let streamingInfo = [];
 
 // Poster Grid Container
-const posterGridEl = document.querySelector(".search-results");
+const posterGridEl = document.querySelector("#results-container");
 
 // Get the modal
 var modal = document.getElementById("searchErrorModal");
@@ -140,6 +140,7 @@ let displayMoviePosters = function () {
       // Div to hold image and title
       let movieCoverEl = document.createElement("div");
       movieCoverEl.setAttribute("id", `movie-poster-container-${i}`);
+      movieCoverEl.classList.add("border-2", "flex-wrap", "border-red-800", "bg-slate-400");
 
       // Add title of movie
       let title = document.createElement("h2");
