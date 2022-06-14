@@ -51,7 +51,7 @@ var formSubmitHandler = function (event) {
 // OMDb API key: 6f4894da
 const getMovieData = function (title) {
   // Fetch array of movie results
-  let apiUrl = `http://www.omdbapi.com/?apikey=6f4894da&s=${title}&type=movie`;
+  let apiUrl = `https://www.omdbapi.com/?apikey=6f4894da&s=${title}&type=movie`;
   fetch(apiUrl).then(function (response) {
     if (response.ok) {
       // Parse and return array
@@ -257,6 +257,36 @@ let displayMovieModal = function (arrObj) {
   // Create array to hold review ratings (i.e. Rotten Tomatoes)
   let ratings = [];
 
+  // Add div for sreaming services
+  let streamingEl = document.createElement("div");
+  streamingEl.setAttribute("id", "streaming-services");
+
+  // Get streaming info from select object
+  let streaming = platformInfo(arrObj);
+  if (streaming == null) {
+    console.log("No streaming");
+  } else {
+    streaming.forEach(function (data) {
+      // Div to hold service
+      let service = document.createElement("div");
+
+      // Get icon
+      let iconEl = document.createElement("img");
+      iconEl.setAttribute("src", data.icon);
+
+      // Get link to service page
+      let link = document.createElement("a");
+      link.setAttribute("href", data.url);
+      link.setAttribute("target", "_blank");
+      // Make icon clickable by putting into link
+      link.appendChild(iconEl);
+
+      service.appendChild(link);
+
+      streamingEl.appendChild(service);
+    });
+  }
+
   // Append all list items to unordered list
   infoList.appendChild(ratedEl);
   infoList.appendChild(runtimeEl);
@@ -269,6 +299,7 @@ let displayMovieModal = function (arrObj) {
   movieModalContent.appendChild(titleEl);
   movieModalContent.appendChild(poster);
   movieModalContent.appendChild(infoList);
+  movieModalContent.appendChild(streamingEl);
 
   // Append modal container with movieModalContent
   movieModal.appendChild(movieModalContent);
