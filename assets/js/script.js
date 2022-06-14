@@ -118,7 +118,6 @@ const getPlatforms = function (id) {
         } else {
           let streamingObject = data.collection;
           streamingInfo.push(streamingObject);
-          console.log(streamingInfo);
         }
       });
     }
@@ -132,36 +131,182 @@ let displayMoviePosters = function () {
 
   // Go through fullMovieData array to find poster img URLs
   for (i = 0; i < fullMovieData.length; i++) {
-    // If not movie poster  url found, skip and console log
+    // Div to hold image and title
+    let movieCoverEl = document.createElement("div");
+    movieCoverEl.setAttribute("id", `movie-poster-container-${i}`);
+    movieCoverEl.classList.add("border-2", "flex-wrap", "border-red-800", "bg-slate-400", "movie-option");
+
+    // Add title of movie
+    let title = document.createElement("h2");
+    title.innerHTML = `${fullMovieData[i].Title} (${fullMovieData[i].Year})`;
+    movieCoverEl.appendChild(title);
+
+    // Img element to put poster
+    let poster = document.createElement("img");
+    // Give class of poster
+    poster.classList.add("poster");
+
     if (fullMovieData[i].Poster == "N/A") {
+      poster.setAttribute("src", `assets/images/poster_na.jpg`);
       console.log("Movie poster not here");
-      // Else, create div and img to hold poster
     } else {
-      // Div to hold image and title
-      let movieCoverEl = document.createElement("div");
-      movieCoverEl.setAttribute("id", `movie-poster-container-${i}`);
-      movieCoverEl.classList.add("border-2", "flex-wrap", "border-red-800", "bg-slate-400");
-
-      // Add title of movie
-      let title = document.createElement("h2");
-      title.innerHTML = `${fullMovieData[i].Title} (${fullMovieData[i].Year})`;
-      movieCoverEl.appendChild(title);
-
-      // Img element to put poster
-      let poster = document.createElement("img");
-      // Give class of poster
-      poster.classList.add("poster");
-      poster.setAttribute("movie-id", fullMovieData[i].imdbID);
       // Set img src to selected[i] poster url
       poster.setAttribute("src", `${fullMovieData[i].Poster}`);
-      // Ammend poster to div
-      movieCoverEl.appendChild(poster);
-
-      // Append div to poster grid
-      posterGridEl.appendChild(movieCoverEl);
     }
+
+    // Ammend poster to div
+    movieCoverEl.appendChild(poster);
+
+    // Append div to poster grid
+    posterGridEl.appendChild(movieCoverEl);
   }
-  console.log(fullMovieData);
+
+  // Select each div with the class movie-option
+  let movieOption = document.querySelectorAll(".movie-option");
+  // Make each option clickable
+  movieOption.forEach(function (item) {
+    //  Listen for user click
+    item.addEventListener("click", function (event) {
+      let selection = event.target.parentNode.id;
+      selection = selection.split("-");
+      selection = selection[3];
+
+      if (selection == null) {
+        console.log("click on poster");
+      } else {
+        displayMovieModal(selection);
+        console.log(fullMovieData[selection]);
+      }
+    });
+  });
 };
 
 searchFormEl.addEventListener("submit", formSubmitHandler);
+
+// Function to open and populate movieModal
+let displayMovieModal = function (arrObj) {
+  // Create div to hold modal content
+  let movieModal = document.createElement("div");
+  movieModal.classList.add("modal");
+
+  // Create div to hold all movie data
+  let movieModalContent = document.createElement("div");
+  // Give id of movie-modal for styling and locating in the DOM
+  movieModalContent.setAttribute("id", "movie-modal");
+  movieModalContent.classList.add("modal-content");
+
+  // Span to hold 'x' | Close modal
+  let closeMovieEl = document.createElement("span");
+  closeMovieEl.classList.add("close");
+  closeMovieEl.textContent = `x`;
+
+  // Pull correct movie information from saved fullMovieData[i]
+  let movieArr = fullMovieData[arrObj];
+
+  // Create and store movie year data
+  let yearEl = document.createElement("span");
+  let year = movieArr.Year;
+  yearEl.textContent = ` (${year})`;
+
+  // Create h2 to hold movie title
+  let titleEl = document.createElement("h2");
+  let title = movieArr.Title;
+  titleEl.textContent = title;
+  // Append first to keep at top of modal
+  titleEl.appendChild(yearEl);
+
+  let poster = document.createElement("img");
+  // Give class of poster
+  poster.classList.add("poster");
+
+  if (fullMovieData[arrObj].Poster == "N/A") {
+    poster.setAttribute("src", `assets/images/poster_na.jpg`);
+  } else {
+    // Set img src to selected[i] poster url
+    poster.setAttribute("src", `${fullMovieData[arrObj].Poster}`);
+  }
+
+  // Create unordered list to hold movie data (Plot, rating, runtime, etc.)
+  let infoList = document.createElement("ul");
+
+  // Create li to hold movie rating
+  let ratedEl = document.createElement("li");
+  let rated = movieArr.Rated;
+  ratedEl.textContent = `Rated: ${rated}`;
+
+  // Creae li to hold movie runtime
+  let runtimeEl = document.createElement("li");
+  let runtime = movieArr.Runtime;
+  runtimeEl.textContent = `Length: ${runtime}`;
+
+  // Create li to hold actors
+  let actorsEl = document.createElement("li");
+  let actors = movieArr.Actors;
+  actorsEl.textContent = `Starring: ${actors}`;
+
+  // Create li to hold plot
+  let plotEl = document.createElement("li");
+  let plot = movieArr.Plot;
+  plotEl.textContent = plot;
+
+  // Creare li to hold director info
+  let directorEl = document.createElement("li");
+  let director = movieArr.Director;
+  directorEl.textContent = `Director: ${director}`;
+
+  // Create array to hold review ratings (i.e. Rotten Tomatoes)
+  let ratings = [];
+
+  // Append all list items to unordered list
+  infoList.appendChild(ratedEl);
+  infoList.appendChild(runtimeEl);
+  infoList.appendChild(actorsEl);
+  infoList.appendChild(plotEl);
+  infoList.appendChild(directorEl);
+
+  // Append elements in order in which to be displayed (close button, title, poster, unordered list)
+  movieModalContent.appendChild(closeMovieEl);
+  movieModalContent.appendChild(titleEl);
+  movieModalContent.appendChild(poster);
+  movieModalContent.appendChild(infoList);
+
+  // Append modal container with movieModalContent
+  movieModal.appendChild(movieModalContent);
+
+  // Set content to display on page
+  movieModal.style.display = "block";
+
+  // Add modal to main grid
+  posterGridEl.appendChild(movieModal);
+
+  // Listen for user to close modal
+  window.onclick = function (event) {
+    if (event.target == closeMovieEl) {
+      movieModal.style.display = "none";
+      console.log(event.target);
+    }
+  };
+};
+
+// Get stored streamingInfo information
+let platformInfo = function (n) {
+  // If no streaming available, return null
+  if (streamingInfo[n] == null) {
+    console.log("No streaming");
+    return null;
+  }
+  // Else get selected movie's streaming information
+  let locations = streamingInfo[n].locations;
+
+  // Array to hold information that will be displayed in movie modal
+  let streamForDisplay = [];
+  // For each location, gather neccessary information (service name, icon, and url)
+  locations.forEach(function (data) {
+    // Store data in new object
+    streamArrObj = { service: data.display_name, icon: data.icon, url: data.url };
+    // Push new object to streamForDisplay array
+    streamForDisplay.push(streamArrObj);
+  });
+  // Return streamForDisplay array
+  return streamForDisplay;
+};
