@@ -147,21 +147,6 @@ let displayMoviePosters = function () {
     if (fullMovieData[i].Poster == "N/A") {
       poster.setAttribute("src", `assets/images/poster_na.jpg`);
     } else {
-      // Div to hold image and title
-      let movieCoverEl = document.createElement("div");
-      movieCoverEl.setAttribute("id", `movie-poster-container-${i}`);
-      movieCoverEl.classList.add("border-2", "flex-wrap", "bg-slate-700", "text-center", "text-white");
-
-      // Add title of movie
-      let title = document.createElement("h2");
-      title.innerHTML = `${fullMovieData[i].Title} (${fullMovieData[i].Year})`;
-      movieCoverEl.appendChild(title);
-
-      // Img element to put poster
-      let poster = document.createElement("img");
-      // Give class of poster
-      poster.classList.add("poster", "max-h-96", "mx-auto");
-      poster.setAttribute("movie-id", fullMovieData[i].imdbID);
       // Set img src to selected[i] poster url
       poster.setAttribute("src", `${fullMovieData[i].Poster}`);
     }
