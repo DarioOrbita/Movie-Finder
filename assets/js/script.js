@@ -77,24 +77,22 @@ const getMovieData = function (title) {
 
 // Get more in-depth data about movie, used to pass to getPlatforms and for getting all the data needed for display.
 const singleMovieData = function (data) {
-  setTimeout(function () {
-    for (i = 0; i < data.length; i++) {
-      let id = data[i];
+  for (i = 0; i < data.length; i++) {
+    let id = data[i];
 
-      let apiUrl = `http://www.omdbapi.com/?apikey=6f4894da&i=${id}&type=movie`;
-      fetch(apiUrl).then(function (response) {
-        // Parse and return array
-        response.json().then(function (data) {
-          let movieData = data;
-          fullMovieData.push(movieData);
-          // Send to get platforms
-          getPlatforms(data.imdbID);
-        });
+    let apiUrl = `http://www.omdbapi.com/?apikey=6f4894da&i=${id}&type=movie`;
+    fetch(apiUrl).then(function (response) {
+      // Parse and return array
+      response.json().then(function (data) {
+        let movieData = data;
+        fullMovieData.push(movieData);
+        // Send to get platforms
+        getPlatforms(data.imdbID);
       });
-    }
-  }, 1000);
-  // Delay displayMoviePosters by 3sec to allow array to update from fetch
-  setTimeout(displayMoviePosters, 3000);
+    });
+  }
+  // Delay displayMoviePosters by 1sec to allow array to update from fetch
+  setTimeout(displayMoviePosters, 2000);
 };
 
 // Searh for streaming services
@@ -113,14 +111,12 @@ const getPlatforms = function (id) {
   fetch(apiUrl, options).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
-        setTimeout(function () {
-          if (data.collection.locations == null) {
-            console.log("not streaming");
-          } else {
-            let streamingObject = data.collection;
-            streamingInfo.push(streamingObject);
-          }
-        }, 2000);
+        if (data.collection.locations == null) {
+          console.log("not streaming");
+        } else {
+          let streamingObject = data.collection;
+          streamingInfo.push(streamingObject);
+        }
       });
     }
   });
@@ -150,7 +146,6 @@ let displayMoviePosters = function () {
 
     if (fullMovieData[i].Poster == "N/A") {
       poster.setAttribute("src", `assets/images/poster_na.jpg`);
-      console.log("Movie poster not here");
     } else {
       // Set img src to selected[i] poster url
       poster.setAttribute("src", `${fullMovieData[i].Poster}`);
@@ -283,11 +278,14 @@ let displayMovieModal = function (arrObj) {
       // Make icon clickable by putting into link
       link.appendChild(iconEl);
 
+      // Add link + icon to service holder
       service.appendChild(link);
 
+      // Add serive to streaming-services div
       streamingEl.appendChild(service);
     });
   }
+  console.log(fullMovieData);
 
   // Append all list items to unordered list
   infoList.appendChild(ratedEl);
