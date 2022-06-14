@@ -140,7 +140,7 @@ let displayMoviePosters = function () {
       // Div to hold image and title
       let movieCoverEl = document.createElement("div");
       movieCoverEl.setAttribute("id", `movie-poster-container-${i}`);
-      movieCoverEl.classList.add("border-2", "flex-wrap", "border-red-800", "bg-slate-400", "text-center");
+      movieCoverEl.classList.add("border-2", "flex-wrap", "bg-slate-700", "text-center", "text-white");
 
       // Add title of movie
       let title = document.createElement("h2");
