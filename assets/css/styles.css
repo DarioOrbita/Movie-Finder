@@ -38,3 +38,37 @@
 }
 
 /* End Modal */
+
+#streaming-services {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#movie-modal {
+  width: 50%;
+}
+
+#movie-modal h2 {
+  font-weight: 700;
+  font-size: 24px;
+  text-align: center;
+}
+
+#movie-modal img {
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 600px) {
+  #movie-modal {
+    width: 80%;
+  }
+
+  #movie-modal img {
+    max-width: 90%;
+  }
+
+  #streaming-services {
+    display: block;
+  }
+}
