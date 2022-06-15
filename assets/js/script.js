@@ -205,6 +205,9 @@ let displayMovieModal = function (arrObj) {
   let year = movieArr.Year;
   yearEl.textContent = ` (${year})`;
 
+
+
+
   // Create h2 to hold movie title
   let titleEl = document.createElement("h2");
   let title = movieArr.Title;
@@ -222,6 +225,16 @@ let displayMovieModal = function (arrObj) {
     // Set img src to selected[i] poster url
     poster.setAttribute("src", `${fullMovieData[arrObj].Poster}`);
   }
+
+  let reviewDiv = document.createElement("ul");
+  // Create and store review
+  let reviewEl = document.createElement("li");
+  let review = movieArr.Ratings;
+  reviewEl.textContent = ` (${review})`;
+  
+  
+  // Append first to keep at top of modal
+  reviewDiv.appendChild(reviewEl);
 
   // Create unordered list to hold movie data (Plot, rating, runtime, etc.)
   let infoList = document.createElement("ul");
@@ -275,6 +288,10 @@ let displayMovieModal = function (arrObj) {
       let link = document.createElement("a");
       link.setAttribute("href", data.url);
       link.setAttribute("target", "_blank");
+
+
+      
+
       // Make icon clickable by putting into link
       link.appendChild(iconEl);
 
@@ -298,8 +315,10 @@ let displayMovieModal = function (arrObj) {
   movieModalContent.appendChild(closeMovieEl);
   movieModalContent.appendChild(titleEl);
   movieModalContent.appendChild(poster);
+  movieModalContent.appendChild(reviewDiv);
   movieModalContent.appendChild(infoList);
   movieModalContent.appendChild(streamingEl);
+  
 
   // Append modal container with movieModalContent
   movieModal.appendChild(movieModalContent);
