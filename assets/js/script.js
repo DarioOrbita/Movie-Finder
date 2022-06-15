@@ -126,6 +126,8 @@ const getPlatforms = function (id) {
     if (response.ok) {
       response.json().then(function (data) {
         if (data.collection.locations == null) {
+          let streamingObject = null;
+          streamingInfo.push(streamingObject);
           console.log("not streaming");
         } else {
           let streamingObject = data.collection;
@@ -336,24 +338,23 @@ let displayMovieModal = function (arrObj) {
 // Get stored streamingInfo information
 let platformInfo = function (n) {
   // If no streaming available, return null
-  if (streamingInfo[n] == null) {
+  if (streamingInfo[n] == null || streamingInfo[n] == undefined) {
     console.log("No streaming");
     return null;
+  } else {
+    // Else get selected movie's streaming information
+    let locations = streamingInfo[n].locations;
+
+    // Array to hold information that will be displayed in movie modal
+    let streamForDisplay = [];
+    // For each location, gather neccessary information (service name, icon, and url)
+    locations.forEach(function (data) {
+      // Store data in new object
+      streamArrObj = { service: data.display_name, icon: data.icon, url: data.url };
+      // Push new object to streamForDisplay array
+      streamForDisplay.push(streamArrObj);
+    });
+    // Return streamForDisplay array
+    return streamForDisplay;
   }
-  // Else get selected movie's streaming information
-  let locations = streamingInfo[n].locations;
-
-  // Array to hold information that will be displayed in movie modal
-  let streamForDisplay = [];
-  // For each location, gather neccessary information (service name, icon, and url)
-  locations.forEach(function (data) {
-    // Store data in new object
-    streamArrObj = { service: data.display_name, icon: data.icon, url: data.url };
-    // Push new object to streamForDisplay array
-    streamForDisplay.push(streamArrObj);
-  });
-  // Return streamForDisplay array
-  return streamForDisplay;
 };
-
-let loadLastSearch = function () {};
