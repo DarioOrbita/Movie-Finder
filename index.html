@@ -1,13 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/styles.css">
 
-    <title>Document</title>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./assets/css/styles.css">
+
+  <title>Movie-Finder</title>
 </head>
-<body>
+
+<body class="bg-gray-800">
+<!-- Added the search function to header -->
+    <header class="container flex flex-row basis-0 justify-center xl:justify-start text-center text-white">
+      <div class="basis-0 mx-auto lg:ml-3">
+        <h1 class=""> Movie-Finder</h1>
+          <div class="">
+              <h3>Search for a Movie:</h3>
+              <form id="search-form">
+                <input name="movie" id="movie" type="text" autofocus="true" class="form-input text-black" />
+                <button type="submit" class="submitBtn">Search</button>
+              </form>
+          </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- The Modal -->
+  <div id="searchErrorModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Error: You must enter a movie title!</p>
+    </div>
+
+  </div>
+
+    <div class="search-results">
+      
+    </div>
+
+  <!-- results container -->
+  <div id="results-container" class="grid gap-6 md:grid-cols-2 md:grid-rows-4 lg:grid-cols-3 lg:grid-rows-5 xl:grid-cols-4 xl:grid-rows-6 bg-gray-900 container mx-auto p-10">
+    
+  </div>
+  <!-- end results container -->
+
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="./assets/js/script.js"></script>
 </body>
+
 </html>
