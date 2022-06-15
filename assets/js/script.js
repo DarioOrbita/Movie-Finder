@@ -204,7 +204,7 @@ let displayMovieModal = function (arrObj) {
   let yearEl = document.createElement("span");
   let year = movieArr.Year 
   let plots = movieArr.Plot;
-  yearEl.textContent = ` (${year})` + ` (${plots})`;
+  yearEl.textContent = ` (${year})` + ' - ' + plots;
 
 
 
