@@ -143,6 +143,7 @@ let displayMoviePosters = function () {
     let poster = document.createElement("img");
     // Give class of poster
     poster.classList.add("poster");
+   
 
     if (fullMovieData[i].Poster == "N/A") {
       poster.setAttribute("src", `assets/images/poster_na.jpg`);
@@ -207,7 +208,6 @@ let displayMovieModal = function (arrObj) {
   yearEl.textContent = ` (${year})` + ' - ' + plots;
 
 
-
   // Create h2 to hold movie title
   let titleEl = document.createElement("h2");
   let title = movieArr.Title;
@@ -216,8 +216,7 @@ let displayMovieModal = function (arrObj) {
   titleEl.appendChild(yearEl);
 
   let posterRatingEl = document.createElement("div");
-    posterRatingEl.classList.add('poster-rating');
-
+  posterRatingEl.classList.add("flex", "justify-around", "flex-row", "flex-wrap");
   let poster = document.createElement("img");
   // Give class of poster
   poster.classList.add("poster");
@@ -230,29 +229,29 @@ let displayMovieModal = function (arrObj) {
   }
   posterRatingEl.appendChild(poster);
   // Create and store review
-  let reviewDiv = document.createElement("div");
+
   
-   // This gets the source of the review 
-  let reviewEl = document.createElement("div");
-  let review = movieArr.Ratings[0].Source;
-  reviewEl.textContent = `Reviewer: ${review}`;
+   // This gets the source of the review (was not working)
+  // let reviewEl = document.createElement("div");
+  // let review = movieArr.Ratings[0].Source;
+  // reviewEl.textContent = `Reviewer: ${review}`;
   
-  // This gets the rating/score for the movie
-  let ratingsEl = document.createElement("div");
-  let rating = movieArr.Ratings[0].Value;
-  reviewEl.textContent = `Score: ${rating}`;
+  
  
   
 
-  // Append first to keep at top of modal
-  reviewDiv.appendChild(reviewEl);
-  reviewDiv.appendChild(ratingsEl);
-  posterRatingEl.appendChild(reviewDiv);
 
  
 
   // Create unordered list to hold movie data (Plot, rating, runtime, etc.)
   let infoList = document.createElement("ul");
+  infoList.classList.add("flex", "justify-end", "flex-col", "flex-wrap");
+
+  // This gets the rating/score for the movie
+  let scoreEL = document.createElement("li");
+  let score = movieArr.Ratings[0].Value;
+  scoreEL.classList.add("font-bold");
+  scoreEL.textContent = `Rotten Tomato Rating: ${score}`;
 
   // Create li to hold movie rating
   let ratedEl = document.createElement("li");
@@ -269,18 +268,12 @@ let displayMovieModal = function (arrObj) {
   let actors = movieArr.Actors;
   actorsEl.textContent = `Starring: ${actors}`;
 
-  // Create li to hold plot
-  let plotEl = document.createElement("li");
-  let plot = movieArr.Plot;
-  plotEl.textContent = plot;
 
   // Creare li to hold director info
   let directorEl = document.createElement("li");
   let director = movieArr.Director;
   directorEl.textContent = `Director: ${director}`;
 
-  // Create array to hold review ratings (i.e. Rotten Tomatoes)
-  let ratings = [];
 
   // Add div for sreaming services
   let streamingEl = document.createElement("div");
@@ -305,8 +298,6 @@ let displayMovieModal = function (arrObj) {
       link.setAttribute("target", "_blank");
 
 
-      
-
       // Make icon clickable by putting into link
       link.appendChild(iconEl);
 
@@ -315,16 +306,22 @@ let displayMovieModal = function (arrObj) {
 
       // Add serive to streaming-services div
       streamingEl.appendChild(service);
+
+  
     });
   }
   console.log(fullMovieData);
 
   // Append all list items to unordered list
+  infoList.appendChild(scoreEL);
   infoList.appendChild(ratedEl);
   infoList.appendChild(runtimeEl);
   infoList.appendChild(actorsEl);
-  infoList.appendChild(plotEl);
   infoList.appendChild(directorEl);
+
+ 
+ 
+  
 
   // Append elements in order in which to be displayed (close button, title, poster, unordered list)
   movieModalContent.appendChild(closeMovieEl);
@@ -332,6 +329,7 @@ let displayMovieModal = function (arrObj) {
   movieModalContent.appendChild(posterRatingEl);
   movieModalContent.appendChild(infoList);
   movieModalContent.appendChild(streamingEl);
+
   
 
   // Append modal container with movieModalContent
