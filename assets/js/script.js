@@ -9,6 +9,9 @@ let fullMovieData = [];
 // Holds streaming info for each movie
 let streamingInfo = [];
 
+let lastSearch = localStorage.getItem("search");
+console.log(lastSearch);
+
 // Poster Grid Container
 const posterGridEl = document.querySelector("#results-container");
 
@@ -31,6 +34,14 @@ window.onclick = function (event) {
 };
 // End of the modal
 
+let readyFunction = function () {
+  if (lastSearch) {
+    getMovieData(lastSearch);
+  } else {
+    console.log("No recent search");
+  }
+};
+
 var formSubmitHandler = function (event) {
   event.preventDefault();
   movies = [];
@@ -41,6 +52,7 @@ var formSubmitHandler = function (event) {
   if (movieSearch) {
     getMovieData(movieSearch);
     movieInputEl.value = "";
+    localStorage.setItem("search", movieSearch);
   } else {
     // alert("Please enter a valid movie name!");
     modal.style.display = "block";
@@ -74,6 +86,8 @@ const getMovieData = function (title) {
     }
   });
 };
+
+readyFunction();
 
 // Get more in-depth data about movie, used to pass to getPlatforms and for getting all the data needed for display.
 const singleMovieData = function (data) {
@@ -341,3 +355,5 @@ let platformInfo = function (n) {
   // Return streamForDisplay array
   return streamForDisplay;
 };
+
+let loadLastSearch = function () {};

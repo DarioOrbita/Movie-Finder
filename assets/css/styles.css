@@ -42,7 +42,7 @@
 #streaming-services {
   margin-top: 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 #movie-modal {
@@ -57,6 +57,15 @@
 
 #movie-modal img {
   margin: 0 auto;
+}
+
+#movie-modal ul {
+  width: 80%;
+  margin: 0 auto;
+}
+
+#movie-modal li {
+  margin-top: 5px;
 }
 
 @media screen and (max-width: 600px) {
