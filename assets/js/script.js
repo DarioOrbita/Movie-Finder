@@ -202,9 +202,9 @@ let displayMovieModal = function (arrObj) {
 
   // Create and store movie year data
   let yearEl = document.createElement("span");
-  let year = movieArr.Year;
-  yearEl.textContent = ` (${year})`;
-
+  let year = movieArr.Year 
+  let plots = movieArr.Plot;
+  yearEl.textContent = ` (${year})` + ` (${plots})`;
 
 
 
@@ -214,6 +214,9 @@ let displayMovieModal = function (arrObj) {
   titleEl.textContent = title;
   // Append first to keep at top of modal
   titleEl.appendChild(yearEl);
+
+  let posterRatingEl = document.createElement("div");
+    posterRatingEl.classList.add('poster-rating');
 
   let poster = document.createElement("img");
   // Give class of poster
@@ -225,16 +228,28 @@ let displayMovieModal = function (arrObj) {
     // Set img src to selected[i] poster url
     poster.setAttribute("src", `${fullMovieData[arrObj].Poster}`);
   }
-
-  let reviewDiv = document.createElement("ul");
+  posterRatingEl.appendChild(poster);
   // Create and store review
-  let reviewEl = document.createElement("li");
-  let review = movieArr.Ratings;
-  reviewEl.textContent = ` (${review})`;
+  let reviewDiv = document.createElement("div");
   
+   // This gets the source of the review 
+  let reviewEl = document.createElement("div");
+  let review = movieArr.Ratings[0].Source;
+  reviewEl.textContent = `Reviewer: ${review}`;
   
+  // This gets the rating/score for the movie
+  let ratingsEl = document.createElement("div");
+  let rating = movieArr.Ratings[0].Value;
+  reviewEl.textContent = `Score: ${rating}`;
+ 
+  
+
   // Append first to keep at top of modal
   reviewDiv.appendChild(reviewEl);
+  reviewDiv.appendChild(ratingsEl);
+  posterRatingEl.appendChild(reviewDiv);
+
+ 
 
   // Create unordered list to hold movie data (Plot, rating, runtime, etc.)
   let infoList = document.createElement("ul");
@@ -314,8 +329,7 @@ let displayMovieModal = function (arrObj) {
   // Append elements in order in which to be displayed (close button, title, poster, unordered list)
   movieModalContent.appendChild(closeMovieEl);
   movieModalContent.appendChild(titleEl);
-  movieModalContent.appendChild(poster);
-  movieModalContent.appendChild(reviewDiv);
+  movieModalContent.appendChild(posterRatingEl);
   movieModalContent.appendChild(infoList);
   movieModalContent.appendChild(streamingEl);
   
