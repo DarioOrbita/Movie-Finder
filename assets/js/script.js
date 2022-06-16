@@ -94,7 +94,7 @@ const singleMovieData = function (data) {
   for (i = 0; i < data.length; i++) {
     let id = data[i];
 
-    let apiUrl = `http://www.omdbapi.com/?apikey=6f4894da&i=${id}&type=movie`;
+    let apiUrl = `https://www.omdbapi.com/?apikey=6f4894da&i=${id}&type=movie`;
     fetch(apiUrl).then(function (response) {
       // Parse and return array
       response.json().then(function (data) {
