@@ -148,7 +148,7 @@ let displayMoviePosters = function () {
     // Div to hold image and title
     let movieCoverEl = document.createElement("div");
     movieCoverEl.setAttribute("id", `movie-poster-container-${i}`);
-    movieCoverEl.classList.add("border-2", "flex-wrap", "border-red-800", "bg-slate-400", "movie-option");
+    movieCoverEl.classList.add("flex-wrap", "bg-slate-400", "movie-option", "text-center", "font-bold", "pt-3", "px-3", "rounded-lg");
 
     // Add title of movie
     let title = document.createElement("h2");
@@ -158,7 +158,7 @@ let displayMoviePosters = function () {
     // Img element to put poster
     let poster = document.createElement("img");
     // Give class of poster
-    poster.classList.add("poster");
+    poster.classList.add("poster", "mx-auto", "mt-3", "mb-3");
 
     if (fullMovieData[i].Poster == "N/A") {
       poster.setAttribute("src", `assets/images/poster_na.jpg`);
@@ -230,7 +230,7 @@ let displayMovieModal = function (arrObj) {
 
   let poster = document.createElement("img");
   // Give class of poster
-  poster.classList.add("poster");
+  poster.classList.add("poster", "pt-2");
 
   if (fullMovieData[arrObj].Poster == "N/A") {
     poster.setAttribute("src", `assets/images/poster_na.jpg`);
